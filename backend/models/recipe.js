@@ -1,18 +1,58 @@
-module.exports = (sequelize, DataTypes) => {
-    const Recipe = sequelize.define('Recipe', {
-        recipe_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-        user_id: { type: DataTypes.INTEGER, allowNull: false },
-        title: { type: DataTypes.STRING, allowNull: false },
-        product_id: { type: DataTypes.INTEGER, allowNull: false },
-        ingredients: { type: DataTypes.TEXT, allowNull: false },
-        instructions: { type: DataTypes.TEXT, allowNull: false },
-        date_created: { type: DataTypes.DATE, allowNull: false },
+const conn = require('../config/db');
+
+const Recipe = {};
+
+Recipe.getAllRecipes = () => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM Recipe', (err, res) => {
+            if (err) {
+                console.error('Error fetching all recipes:', err);
+                return reject(err);
+            }
+            return resolve(res);
+        });
     });
-
-    Recipe.associate = models => {
-        Recipe.belongsTo(models.User, { foreignKey: 'user_id' });
-        Recipe.belongsTo(models.Product, { foreignKey: 'product_id' });
-    };
-
-    return Recipe;
 };
+
+Recipe.getRecipeById = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('SELECT * FROM Recipe WHERE recipe_id = ?', [id], (err, res) => {
+            if (err) {
+                console.error(`Error fetching recipe with ID ${id}:`, err);
+                return reject(err);
+            }
+            return resolve(res);
+        });
+    });
+};
+
+Recipe.createRecipe = (recipeData) => {
+    const { user_id, title, product_id, instructions, date_created } = recipeData;
+    return new Promise((resolve, reject) => {
+        conn.query(
+            'INSERT INTO Recipe (user_id, title, product_id, instructions, date_created) VALUES (?, ?, ?, ?, ?)',
+            [user_id, title, product_id, instructions, date_created],
+            (err, res) => {
+                if (err) {
+                    console.error('Error creating recipe:', err);
+                    return reject(err);
+                }
+                return resolve(res);
+            }
+        );
+    });
+};
+
+Recipe.deleteRecipe = (id) => {
+    return new Promise((resolve, reject) => {
+        conn.query('DELETE FROM Recipe WHERE recipe_id = ?', [id], (err, res) => {
+            if (err) {
+                console.error(`Error deleting recipe with ID ${id}:`, err);
+                return reject(err);
+            }
+            return resolve(res);
+        });
+    });
+};
+
+module.exports = Recipe;

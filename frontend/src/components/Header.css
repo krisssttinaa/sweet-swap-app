@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e8f5e9;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo h1 {
+  font-size: 24px;
+  color: #000000;
+}
+
+.navigation {
+  display: flex;
+}
+
+.navigation a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #000000;
+  font-size: 18px;
+}
+
+.navigation .active {
+  font-weight: bold;
+  border-bottom: 2px solid #2e7d32;
+  color: #2e7d32;
+}

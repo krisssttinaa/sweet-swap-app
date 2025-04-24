@@ -1,38 +1,57 @@
-import React from 'react';
-import './Home.css'; // You can style the Home page with this CSS file
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import './Home.css';
 
 const Home = () => {
+  const [newRecipes, setNewRecipes] = useState([]);
+
+  useEffect(() => {
+    const fetchNewRecipes = async () => {
+      try {
+        const response = await axios.get('http://88.200.63.148:8288/api/recipes/newest');
+        setNewRecipes(response.data);
+      } catch (error) {
+        console.error('Error fetching recipes:', error);
+      }
+    };
+
+    fetchNewRecipes();
+  }, []);
+
   return (
     <div className="home">
       <header className="home-header">
-        <h1>Sweet Swap</h1>
-        <p>Explore the world of sugar-free food</p>
+        <div className="hero-image">
+          <div className="hero-text">
+            <h1></h1>
+            <p>Explore the world of sugar-free food</p>
+          </div>
+        </div>
       </header>
       <section className="home-recipes">
-        <h2>Best recipes</h2>
         <div className="recipe-categories">
           <div className="category">
-            <img src="salad.jpg" alt="Salads" />
+            <img src="/images/salad.jpg" alt="Salads" />
             <p>Salads</p>
           </div>
           <div className="category">
-            <img src="vegetarian.jpg" alt="Vegetarian Dishes" />
+            <img src="/images/vegetarian.jpg" alt="Vegetarian Dishes" />
             <p>Vegetarian Dishes</p>
           </div>
           <div className="category">
-            <img src="snacks.jpg" alt="Low-Sugar Snacks" />
+            <img src="/images/snacks.jpg" alt="Low-Sugar Snacks" />
             <p>Low-Sugar Snacks</p>
           </div>
           <div className="category">
-            <img src="sugar-free-desserts.jpg" alt="Sugar-Free Desserts" />
+            <img src="/images/sugar-free-desserts.jpg" alt="Sugar-Free Desserts" />
             <p>Sugar-Free Desserts</p>
           </div>
           <div className="category">
-            <img src="beverages.jpg" alt="Healthy Beverages" />
+            <img src="/images/beverages.jpg" alt="Healthy Beverages" />
             <p>Healthy Beverages</p>
           </div>
           <div className="category">
-            <img src="low-sugar-desserts.jpg" alt="Low-Sugar Desserts" />
+            <img src="/images/low-sugar-desserts.jpg" alt="Low-Sugar Desserts" />
             <p>Low-Sugar Desserts</p>
           </div>
         </div>
@@ -40,32 +59,25 @@ const Home = () => {
       <section className="home-new-recipes">
         <h2>New recipes</h2>
         <div className="new-recipes-list">
-          <div className="recipe-card">
-            <img src="low-sugar-chocolate-cake.jpg" alt="Low-Sugar Chocolate Cake" />
-            <h3>Low-Sugar Chocolate Cake</h3>
-            <p>Short description of the lovely offer.</p>
-            <a href="#">Recipe</a>
-          </div>
-          <div className="recipe-card">
-            <img src="veggie-stirfry.jpg" alt="Veggie Stir-Fry" />
-            <h3>Veggie Stir-Fry</h3>
-            <p>Short description of the lovely offer.</p>
-            <a href="#">Recipe</a>
-          </div>
-          <div className="recipe-card">
-            <img src="banana-bread.jpg" alt="Healthy Banana Bread" />
-            <h3>Healthy Banana Bread</h3>
-            <p>Short description of the lovely offer.</p>
-            <a href="#">Recipe</a>
-          </div>
+          {newRecipes.length > 0 ? (
+            newRecipes.map((recipe) => (
+              <div className="recipe-card" key={recipe.recipe_id}>
+                <img src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`} alt={recipe.title} />
+                <h3>{recipe.title}</h3>
+                <p>Place here some short description of a lovely offer.</p>
+                <a href="#">Recipe</a>
+              </div>
+            ))
+          ) : (
+            <p>No recipes found.</p>
+          )}
         </div>
-        <div className="all-recipes-button">
-          <a href="#">All Recipes</a>
-        </div>
+       
       </section>
       <footer className="home-footer">
         <div className="social-links">
-          {/* <a href="#"><i className="fab fa-facebook-f"></i></a>
+          {/* Uncomment and update with your social links if needed
+          <a href="#"><i className="fab fa-facebook-f"></i></a>
           <a href="#"><i className="fab fa-twitter"></i></a>
           <a href="#"><i className="fab fa-google-plus-g"></i></a> */}
         </div>

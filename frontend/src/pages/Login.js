@@ -1,39 +1,63 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    password: ''
-  });
-
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const { username, password } = formData;
-
-  const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
-
-  const onSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add your login logic here, such as an API call
-    // On successful login, navigate to another page, for example:
-    navigate('/profile');
+    try {
+      const response = await axios.post('http://88.200.63.148:8288/api/users/login', {
+        username,
+        password
+      });
+      console.log(response.data);
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        navigate('/');
+      } else {
+        setError('Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Login error', error);
+      setError('Invalid credentials');
+    }
   };
 
   return (
-    <div>
-      <h1>Login</h1>
-      <form onSubmit={onSubmit}>
-        <div>
-          <label>Username</label>
-          <input type="text" name="username" value={username} onChange={onChange} required />
-        </div>
-        <div>
-          <label>Password</label>
-          <input type="password" name="password" value={password} onChange={onChange} required />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h2 className="login-title">Login</h2>
+        <form onSubmit={handleSubmit} className="login-form">
+          {error && <p className="error-message">{error}</p>}
+          <div className="form-group">
+            <label htmlFor="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+      </div>
     </div>
   );
 };

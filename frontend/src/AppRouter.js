@@ -9,14 +9,13 @@ import AchievementList from './pages/AchievementList';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
-import About from './pages/About';
 import Header from './components/Header';
 
 const AppRouter = () => (
   <Router>
     <Header />
     <Routes>
-      <Route exact path="/" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="/recipes" element={<RecipeList />} />
       <Route path="/recipe/:id" element={<RecipeDetails />} />
       <Route path="/add-recipe" element={<AddRecipe />} />
@@ -25,7 +24,6 @@ const AppRouter = () => (
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/about" element={<About />} />
     </Routes>
   </Router>
 );

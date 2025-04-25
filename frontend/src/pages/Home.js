@@ -23,7 +23,6 @@ const Home = () => {
       <header className="home-header">
         <div className="hero-image">
           <div className="hero-text">
-            <h1></h1>
             <p>Explore the world of sugar-free food</p>
           </div>
         </div>
@@ -76,7 +75,7 @@ const Home = () => {
       </section>
       <footer className="home-footer">
         <div className="social-links">
-          {/* Uncomment and update with your social links if needed
+          {/*
           <a href="#"><i className="fab fa-facebook-f"></i></a>
           <a href="#"><i className="fab fa-twitter"></i></a>
           <a href="#"><i className="fab fa-google-plus-g"></i></a> */}

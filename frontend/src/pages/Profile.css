@@ -1,0 +1,20 @@
+.profile-page {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .recipe-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .recipe-item {
+    width: 100%;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+  }
+  

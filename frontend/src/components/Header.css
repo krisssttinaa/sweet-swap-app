@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #e8f5e9;
+  background-color: #95e39b 0.9;
+
 }
 
 .logo {
@@ -34,6 +35,6 @@
 
 .navigation .active {
   font-weight: bold;
-  border-bottom: 2px solid #2e7d32;
-  color: #2e7d32;
+  border-bottom: 2px solid #134b15;
+  color: #134b15;
 }

@@ -2,28 +2,50 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
-  background-color: #95e39b 0.9;
+  padding: 10px 40px;
+  background-color: #80bb65;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
 
+.header-small {
+  padding: 5px 20px;
+  background-color: #80bb65; /* Optional: change background color when shrinking */
 }
 
 .logo {
   display: flex;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
 .logo img {
   height: 40px;
   margin-right: 10px;
+  transition: height 0.3s ease-in-out;
+}
+
+.header-small .logo img {
+  height: 30px;
 }
 
 .logo h1 {
   font-size: 24px;
   color: #000000;
+  transition: font-size 0.3s ease-in-out;
+}
+
+.header-small .logo h1 {
+  font-size: 20px;
 }
 
 .navigation {
   display: flex;
+  padding: 0 70px;
 }
 
 .navigation a {
@@ -35,6 +57,15 @@
 
 .navigation .active {
   font-weight: bold;
-  border-bottom: 2px solid #134b15;
-  color: #134b15;
+  border-bottom: 2px solid #0d3c0e;
+  color: #0a330b;
+}
+
+/* Add padding to the body to avoid content being hidden behind the fixed header */
+body {
+  padding-top: 60px; /* Adjust this value based on the height of your header */
+}
+
+.header-small body {
+  padding-top: 50px; /* Adjust this value based on the height of your header when shrunk */
 }

@@ -36,13 +36,13 @@ const Header = () => {
         <h1>Sweet Swap</h1>
       </div>
       <nav className="navigation">
-        <NavLink exact to="/" activeClassName="active">Home</NavLink>
-        <NavLink to="/recipes" activeClassName="active">Recipes</NavLink>
-        {isLoggedIn && <NavLink to="/profile" activeClassName="active">Profile</NavLink>}
-        {isLoggedIn && isModerator && <NavLink to="/moderate" activeClassName="active">Moderate</NavLink>}
-        <NavLink to="/contact" activeClassName="active">Contact</NavLink>
-        {!isLoggedIn && <NavLink to="/login" activeClassName="active">Login</NavLink>}
-        {!isLoggedIn && <NavLink to="/register" activeClassName="active">Register</NavLink>}
+        <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>
+        <NavLink to="/recipes" className={({ isActive }) => (isActive ? 'active' : '')}>Recipes</NavLink>
+        {isLoggedIn && <NavLink to="/profile" className={({ isActive }) => (isActive ? 'active' : '')}>Profile</NavLink>}
+        {isLoggedIn && isModerator && <NavLink to="/moderate" className={({ isActive }) => (isActive ? 'active' : '')}>Moderate</NavLink>}
+        <NavLink to="/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>
+        {!isLoggedIn && <NavLink to="/login" className={({ isActive }) => (isActive ? 'active' : '')}>Login</NavLink>}
+        {!isLoggedIn && <NavLink to="/register" className={({ isActive }) => (isActive ? 'active' : '')}>Register</NavLink>}
         {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
       </nav>
     </header>

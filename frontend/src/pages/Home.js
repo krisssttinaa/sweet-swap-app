@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Home.css';
 
 const Home = () => {
   const [newRecipes, setNewRecipes] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchNewRecipes = async () => {
@@ -18,6 +20,14 @@ const Home = () => {
     fetchNewRecipes();
   }, []);
 
+  const handleViewRecipe = (id) => {
+    navigate(`/recipe/${id}`);
+  };
+
+  const handleCategoryClick = (category) => {
+    navigate(`/recipes/category/${category}`);
+  };
+
   return (
     <div className="home">
       <header className="home-header">
@@ -29,29 +39,37 @@ const Home = () => {
       </header>
       <section className="home-recipes">
         <div className="recipe-categories">
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Salads')}>
             <img src="/images/salad.jpg" alt="Salads" />
             <p>Salads</p>
           </div>
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Vegetarian Dishes')}>
             <img src="/images/vegetarian.jpg" alt="Vegetarian Dishes" />
             <p>Vegetarian Dishes</p>
           </div>
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Low-Sugar Snacks')}>
             <img src="/images/snacks.jpg" alt="Low-Sugar Snacks" />
             <p>Low-Sugar Snacks</p>
           </div>
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Sugar-Free Desserts')}>
             <img src="/images/sugar-free-desserts.jpg" alt="Sugar-Free Desserts" />
             <p>Sugar-Free Desserts</p>
           </div>
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Healthy Beverages')}>
             <img src="/images/beverages.jpg" alt="Healthy Beverages" />
             <p>Healthy Beverages</p>
           </div>
-          <div className="category">
+          <div className="category" onClick={() => handleCategoryClick('Low-Sugar Desserts')}>
             <img src="/images/low-sugar-desserts.jpg" alt="Low-Sugar Desserts" />
             <p>Low-Sugar Desserts</p>
+          </div>
+          <div className="category" onClick={() => handleCategoryClick('Sugar-Free Snacks')}>
+            <img src="/images/sugar-free-snacks.jpg" alt="Sugar-Free Snacks" />
+            <p>Sugar-Free Snacks</p>
+          </div>
+          <div className="category" onClick={() => handleCategoryClick('Non-Vegetarian Food')}>
+            <img src="/images/non-vegetarian.jpg" alt="Non-Vegetarian Food" />
+            <p>Non-Vegetarian Food</p>
           </div>
         </div>
       </section>
@@ -61,17 +79,21 @@ const Home = () => {
           {newRecipes.length > 0 ? (
             newRecipes.map((recipe) => (
               <div className="recipe-card" key={recipe.recipe_id}>
-                <img src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`} alt={recipe.title} />
+                {recipe.image && (
+                  <img
+                    src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`}
+                    alt={recipe.title}
+                  />
+                )}
                 <h3>{recipe.title}</h3>
                 <p>Place here some short description of a lovely offer.</p>
-                <a href="#">Recipe</a>
+                <button onClick={() => handleViewRecipe(recipe.recipe_id)}>Recipe</button>
               </div>
             ))
           ) : (
             <p>No recipes found.</p>
           )}
         </div>
-       
       </section>
     </div>
   );

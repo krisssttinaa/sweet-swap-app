@@ -5,7 +5,7 @@
 }
 
 .hero-image {
-  background-image: url('/images/home4.jpg'); /* Adjust the path as needed */
+  background-image: url('/images/home4.jpg'); 
   height: 500px;
   background-position: center;
   background-repeat: no-repeat;
@@ -54,7 +54,7 @@
 
 .category img {
   width: 100%;
-  height: 200px; /* Fixed height */
+  height: 200px; 
   object-fit: cover; /* Crop the image to fit */
   display: block;
 }
@@ -74,7 +74,9 @@
 .home-new-recipes {
   background-color: #eef4f2;
   padding: 40px 20px;
+  margin-top: 40px;
   text-align: center;
+  margin-bottom: 80px;
 }
 
 .home-new-recipes h2 {
@@ -101,7 +103,7 @@
 
 .recipe-card img {
   width: 100%;
-  height: 200px; /* Adjust the height as needed */
+  height: 200px; 
   object-fit: cover;
 }
 
@@ -137,11 +139,23 @@
   border: none;
 }
 
-.home-footer {
-  text-align: center;
-  padding: 10px;
-  background-color: #f1f1f1;
+.recipe-card button {
+  display: inline-block;
+  margin: 15px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
+
+.recipe-card button:hover {
+  background-color: #45a049;
+}
+
 
 .social-links a {
   margin: 0 10px;

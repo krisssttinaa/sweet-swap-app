@@ -17,7 +17,7 @@ const AppRouter = () => (
   <Router>
     <Header />
     <Routes>
-      <Route path="/" element={<Home />} />
+      <Route exact path="/" element={<Home />} />
       <Route path="/recipes" element={<RecipeList />} />
       <Route path="/recipe/:id" element={<RecipeDetails />} />
       <Route path="/add-recipe" element={<AddRecipe />} />
@@ -27,6 +27,7 @@ const AppRouter = () => (
       <Route path="/register" element={<Register />} />
       <Route path="/profile" element={<Profile />} />
       <Route path="/contact" element={<Contact />} />
+      <Route path="/recipes/category/:category" element={<RecipeList />} />
     </Routes>
     <Footer />
   </Router>

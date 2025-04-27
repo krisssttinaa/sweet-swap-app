@@ -1,13 +1,11 @@
-/* Centering the register card in the middle of the screen */
 .register-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 90vh;
     background-color: #f0f4f8;
 }
   
-/* Styling the register card */
 .register-card {
     background: white;
     padding: 2rem;
@@ -17,7 +15,6 @@
     width: 100%;
 }
   
-/* Styling the register title */
 .register-title {
     margin-bottom: 1.5rem;
     font-size: 2rem;
@@ -25,7 +22,6 @@
     color: #4caf50;
 }
   
-/* Styling the form and form elements */
 .register-form .form-group {
     margin-bottom: 1rem;
 }

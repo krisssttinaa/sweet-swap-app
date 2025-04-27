@@ -1,20 +1,109 @@
 .profile-page {
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .recipe-list {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .recipe-item {
-    width: 100%;
-    max-width: 600px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin: 10px 0;
-    border: 1px solid #ddd;
-  }
-  
+  padding: 20px;
+  text-align: center;
+}
+
+.profile-info p {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+.profile-info strong {
+  font-weight: bold;
+}
+
+.recipe-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.recipe-item {
+  width: 100%;
+  max-width: 600px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.recipe-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 8px;
+}
+
+.recipe-content {
+  flex-grow: 1;
+  text-align: left;
+}
+
+.recipe-content h4 {
+  margin: 0 0 10px 0;
+}
+
+.recipe-content p {
+  margin: 0;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.edit-form label {
+  margin: 10px 0 5px;
+  font-size: 18px;
+}
+
+.edit-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+  max-width: 300px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+}
+
+.edit-form button,
+.profile-info button {
+  padding: 10px 20px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-form button.save {
+  background-color: #28a745;
+}
+
+.edit-form button.cancel {
+  background-color: #dc3545;
+}
+
+.profile-info button.edit {
+  background-color: #28a745;
+}
+
+h3 {
+  font-size: 24px;
+  margin: 40px 0 20px;
+}
+
+.recipe-list p {
+  font-size: 18px;
+}

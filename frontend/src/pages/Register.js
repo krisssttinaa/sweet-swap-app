@@ -10,7 +10,7 @@ const Register = () => {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [country, setCountry] = useState('');
-  const [role, setRole] = useState('user');
+  const [role] = useState('user');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -97,13 +97,6 @@ const Register = () => {
               onChange={(e) => setCountry(e.target.value)}
               required
             />
-          </div>
-          <div className="form-group">
-            <label htmlFor="role">Role:</label>
-            <select id="role" value={role} onChange={(e) => setRole(e.target.value)} required>
-              <option value="user">User</option>
-              <option value="moderator">Moderator</option>
-            </select>
           </div>
           <button type="submit" className="register-button">Register</button>
         </form>

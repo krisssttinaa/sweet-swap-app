@@ -86,7 +86,6 @@ const Home = () => {
                   />
                 )}
                 <h3>{recipe.title}</h3>
-                <p>Place here some short description of a lovely offer.</p>
                 <button onClick={() => handleViewRecipe(recipe.recipe_id)}>Recipe</button>
               </div>
             ))

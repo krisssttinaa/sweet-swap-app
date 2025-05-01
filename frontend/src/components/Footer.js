@@ -12,7 +12,7 @@ const Footer = () => {
         */}
       </div>
       <div className="footer-separator"></div>
-      <p>© 2021 Sweet Swap</p>
+      <p>© 2024 Sweet Swap</p>
     </footer>
   );
 };

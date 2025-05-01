@@ -1,61 +1,57 @@
 const conn = require('../config/db');
-
 const User = {};
 
 User.getAllUsers = () => {
-    return new Promise((resolve, reject) => {
-        conn.query('SELECT * FROM User', (err, res) => {
-            if (err) {
-                console.error('Error fetching all users:', err);
-                return reject(err);
-            }
-            return resolve(res);
+    return conn.query('SELECT * FROM User')
+        .then(([rows, fields]) => rows)
+        .catch((err) => {
+            console.error('Error fetching all users:', err);
+            throw err;
         });
-    });
 };
 
 User.getUserById = (id) => {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM User WHERE user_id = ?';
-        //console.log(`Executing query: ${query} with ID: ${id}`);
-        conn.query(query, [id], (err, res) => {
-            if (err) {
-                console.error(`Error fetching user with ID ${id}:`, err);
-                return reject(err);
-            }
-            //console.log(`Query result for user with ID ${id}:`, res);
-            return resolve(res);
+    return conn.query('SELECT * FROM User WHERE user_id = ?', [id])
+        .then(([rows, fields]) => rows)
+        .catch((err) => {
+            console.error(`Error fetching user with ID ${id}:`, err);
+            throw err;
         });
-    });
 };
 
 User.createUser = (userData) => {
     const { username, password, email, name, surname, country, role, dietary_goals, registration_date, amount_achievements } = userData;
-    return new Promise((resolve, reject) => {
-        conn.query(
-            'INSERT INTO User (username, password, email, name, surname, country, role, dietary_goals, registration_date, amount_achievements) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [username, password, email, name, surname, country, role, dietary_goals, registration_date, amount_achievements],
-            (err, res) => {
-                if (err) {
-                    console.error('Error creating user:', err);
-                    return reject(err);
-                }
-                return resolve(res);
-            }
-        );
-    });
+    return conn.query(
+        'INSERT INTO User (username, password, email, name, surname, country, role, dietary_goals, registration_date, amount_achievements) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+        [username, password, email, name, surname, country, role, dietary_goals, registration_date, amount_achievements]
+    )
+        .then(([result]) => result)
+        .catch((err) => {
+            console.error('Error creating user:', err);
+            throw err;
+        });
 };
 
 User.authUser = (username) => {
-    return new Promise((resolve, reject) => {
-        conn.query('SELECT * FROM User WHERE username = ?', [username], (err, res) => {
-            if (err) {
-                console.error(`Error authenticating user ${username}:`, err);
-                return reject(err);
-            }
-            return resolve(res);
+    return conn.query('SELECT * FROM User WHERE username = ?', [username])
+        .then(([rows, fields]) => rows)
+        .catch((err) => {
+            console.error(`Error authenticating user ${username}:`, err);
+            throw err;
         });
-    });
+};
+
+User.updateUser = (id, userData) => {
+    const { name, surname, email, password } = userData;
+    return conn.query(
+        'UPDATE User SET name = ?, surname = ?, email = ?, password = ? WHERE user_id = ?',
+        [name, surname, email, password, id]
+    )
+        .then(([result]) => result)
+        .catch((err) => {
+            console.error(`Error updating user with ID ${id}:`, err);
+            throw err;
+        });
 };
 
 module.exports = User;

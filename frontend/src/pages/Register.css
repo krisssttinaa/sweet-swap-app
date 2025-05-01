@@ -58,4 +58,24 @@
   
 .register-button:hover {
     background-color: #45a049;
-}  
+}
+
+.login-link-button {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    background-color: white;
+    color: #4caf50;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+  
+.login-link-button:hover {
+    background-color: #4caf50;
+    color: white;
+}

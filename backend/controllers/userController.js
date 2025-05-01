@@ -26,63 +26,74 @@ exports.register = async (req, res) => {
             amount_achievements: 0
         });
 
-        const payload = { user: { username } };
+        const payload = { user: { id: user[0].user_id, username: user[0].username } };
 
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
             if (err) throw err;
             res.json({ token });
         });
     } catch (err) {
-        console.error('Error registering user:', err.message);
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 };
 
 exports.login = async (req, res) => {
     const { username, password } = req.body;
-  
     try {
-      let user = await User.authUser(username);
-      if (user.length === 0) {
-        return res.status(400).json({ msg: 'Invalid Credentials' });
-      }
-  
-      const isMatch = await bcrypt.compare(password, user[0].password);
-      if (!isMatch) {
-        return res.status(400).json({ msg: 'Invalid Credentials' });
-      }
-  
-      const payload = { user: { id: user[0].user_id, username: user[0].username } };
-  
-      jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      });
-    } catch (err) {
-      console.error('Error logging in:', err.message);
-      res.status(500).send('Server error');
-    }
-};
-
-exports.profile = async (req, res) => {
-    try {
-        const user = await User.getUserById(req.user.id);
-        if (!user.length) {
-            return res.status(404).json({ msg: 'User not found' });
+        console.log('Login endpoint hit');
+        let user = await User.authUser(username);
+        if (user.length === 0) {
+            console.log('User not found');
+            return res.status(400).json({ msg: 'Invalid Credentials' });
         }
-        res.json(user[0]);
+
+        const hashedPassword = user[0].password;
+        const isMatch = await bcrypt.compare(password, hashedPassword);
+
+        if (!isMatch) {
+            console.log('Password does not match');
+            return res.status(400).json({ msg: 'Invalid Credentials' });
+        }
+
+        const payload = { user: { id: user[0].user_id, username: user[0].username } };
+
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+            if (err) throw err;
+            res.json({
+                token,
+                user: {
+                    id: user[0].user_id,
+                    username: user[0].username,
+                    email: user[0].email,
+                    name: user[0].name,
+                    surname: user[0].surname,
+                }
+            });
+        });
     } catch (err) {
-        console.error('Error fetching profile:', err.message);
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 };
+  
+exports.profile = async (req, res) => {
+    try {
+        const user = await User.getUserById(req.user.id);
+        res.json(user[0]); 
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+};
+
 
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.getAllUsers();
         res.json(users);
     } catch (err) {
-        console.error('Error fetching users:', err.message);
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 };
@@ -95,7 +106,36 @@ exports.getUserById = async (req, res) => {
         }
         res.json(user[0]);
     } catch (err) {
-        console.error('Error fetching user by ID:', err.message);
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+};
+
+exports.updateProfile = async (req, res) => {
+    const { name, surname, email, password } = req.body;
+    const userId = req.user.id;
+
+    try {
+        const user = await User.getUserById(userId);
+        if (!user.length) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        const updatedUser = {
+            name: name || user[0].name,
+            surname: surname || user[0].surname,
+            email: email || user[0].email,
+        };
+
+        if (password) {
+            const salt = await bcrypt.genSalt(10);
+            updatedUser.password = await bcrypt.hash(password, salt);
+        }
+
+        await User.updateUser(userId, updatedUser);
+        res.json({ msg: 'Profile updated successfully' });
+    } catch (err) {
+        console.error(err.message);
         res.status(500).send('Server error');
     }
 };

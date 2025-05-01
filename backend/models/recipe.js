@@ -1,58 +1,53 @@
 const conn = require('../config/db');
-
 const Recipe = {};
 
 Recipe.getAllRecipes = () => {
-    return new Promise((resolve, reject) => {
-        conn.query('SELECT * FROM Recipe', (err, res) => {
-            if (err) {
-                console.error('Error fetching all recipes:', err);
-                return reject(err);
-            }
-            return resolve(res);
+    return conn.query('SELECT * FROM Recipe')
+        .then(([rows, fields]) => rows)
+        .catch((err) => {
+            console.error('Error fetching all recipes:', err);
+            throw err;
         });
-    });
 };
 
 Recipe.getRecipeById = (id) => {
-    return new Promise((resolve, reject) => {
-        conn.query('SELECT * FROM Recipe WHERE recipe_id = ?', [id], (err, res) => {
-            if (err) {
-                console.error(`Error fetching recipe with ID ${id}:`, err);
-                return reject(err);
-            }
-            return resolve(res);
+    return conn.query('SELECT * FROM Recipe WHERE recipe_id = ?', [id])
+        .then(([rows, fields]) => rows)
+        .catch((err) => {
+            console.error(`Error fetching recipe with ID ${id}:`, err);
+            throw err;
         });
-    });
 };
 
 Recipe.createRecipe = (recipeData) => {
-    const { user_id, title, product_id, instructions, date_created } = recipeData;
-    return new Promise((resolve, reject) => {
-        conn.query(
-            'INSERT INTO Recipe (user_id, title, product_id, instructions, date_created) VALUES (?, ?, ?, ?, ?)',
-            [user_id, title, product_id, instructions, date_created],
-            (err, res) => {
-                if (err) {
-                    console.error('Error creating recipe:', err);
-                    return reject(err);
-                }
-                return resolve(res);
-            }
-        );
-    });
+    const { title, instructions, user_id, date_created, image } = recipeData;
+    return conn.query(
+        'INSERT INTO Recipe (title, instructions, user_id, date_created, image) VALUES (?, ?, ?, ?, ?)',
+        [title, instructions, user_id, date_created, image]
+    )
+        .then(([result]) => result)
+        .catch((err) => {
+            console.error('Error creating recipe:', err);
+            throw err;
+        });
 };
 
 Recipe.deleteRecipe = (id) => {
-    return new Promise((resolve, reject) => {
-        conn.query('DELETE FROM Recipe WHERE recipe_id = ?', [id], (err, res) => {
-            if (err) {
-                console.error(`Error deleting recipe with ID ${id}:`, err);
-                return reject(err);
-            }
-            return resolve(res);
+    return conn.query('DELETE FROM Recipe WHERE recipe_id = ?', [id])
+        .then(([result]) => result)
+        .catch((err) => {
+            console.error(`Error deleting recipe with ID ${id}:`, err);
+            throw err;
         });
-    });
+};
+
+Recipe.getLatestRecipes = () => {
+    return conn.query('SELECT * FROM Recipe ORDER BY date_created DESC LIMIT 3')
+      .then(([rows, fields]) => rows)
+      .catch((err) => {
+        console.error('Error fetching latest recipes:', err);
+        throw err;
+      });
 };
 
 module.exports = Recipe;

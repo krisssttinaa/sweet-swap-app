@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
   const [role] = useState('user');
   const navigate = useNavigate();
@@ -18,15 +18,14 @@ const Register = () => {
     try {
       const response = await axios.post('http://88.200.63.148:8288/api/users/register', {
         username,
-        email,
-        password,
         name,
         surname,
+        email,
+        password,
         country,
         role
       });
       console.log(response.data);
-      // Redirect to login page upon successful registration
       navigate('/login');
     } catch (error) {
       console.error('Registration error', error);
@@ -45,26 +44,6 @@ const Register = () => {
               id="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
@@ -89,6 +68,26 @@ const Register = () => {
             />
           </div>
           <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="password">Password:</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
             <label htmlFor="country">Country:</label>
             <input
               type="text"
@@ -100,6 +99,12 @@ const Register = () => {
           </div>
           <button type="submit" className="register-button">Register</button>
         </form>
+        <button
+          className="login-link-button"
+          onClick={() => navigate('/login')}
+        >
+          or Login
+        </button>
       </div>
     </div>
   );

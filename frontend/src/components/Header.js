@@ -43,7 +43,7 @@ const Header = () => {
         <NavLink to="/contact" className={({ isActive }) => (isActive ? 'active' : '')}>Contact</NavLink>
         {!isLoggedIn && <NavLink to="/login" className={({ isActive }) => (isActive ? 'active' : '')}>Login</NavLink>}
         {!isLoggedIn && <NavLink to="/register" className={({ isActive }) => (isActive ? 'active' : '')}>Register</NavLink>}
-        {isLoggedIn && <button onClick={handleLogout}>Logout</button>}
+        {isLoggedIn && <button onClick={handleLogout} className="logout-button">Logout</button>}
       </nav>
     </header>
   );

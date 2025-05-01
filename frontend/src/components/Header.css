@@ -14,7 +14,7 @@
 
 .header-small {
   padding: 5px 20px;
-  background-color: #80bb65; /* Optional: change background color when shrinking */
+  background-color: #80bb65;
 }
 
 .logo {
@@ -46,13 +46,25 @@
 .navigation {
   display: flex;
   padding: 0 70px;
+  font-size: 18px;
 }
 
-.navigation a {
+.navigation a,
+.navigation .logout-button {
   margin: 0 15px;
   text-decoration: none;
   color: #000000;
   font-size: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 0; /* Ensure consistent padding */
+}
+
+.navigation .logout-button:hover,
+.navigation a:hover {
+  border-bottom: 2px solid #0d3c0e;
+  color: #0a330b;
 }
 
 .navigation .active {
@@ -61,11 +73,10 @@
   color: #0a330b;
 }
 
-/* Add padding to the body to avoid content being hidden behind the fixed header */
 body {
-  padding-top: 60px; /* Adjust this value based on the height of your header */
+  padding-top: 60px; 
 }
 
 .header-small body {
-  padding-top: 50px; /* Adjust this value based on the height of your header when shrunk */
+  padding-top: 50px;
 }

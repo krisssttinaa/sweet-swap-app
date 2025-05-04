@@ -46,6 +46,22 @@
     font-size: 1rem;
     color: #333;
 }
+
+.show-password {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.show-password input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.show-password label {
+    font-size: 1rem;
+    color: #333;
+    margin: 0;
+}
   
 .login-button {
     display: block;

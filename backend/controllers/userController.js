@@ -9,7 +9,6 @@ exports.register = async (req, res) => {
         if (user.length > 0) {
             return res.status(400).json({ msg: 'User already exists' });
         }
-
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -27,8 +26,7 @@ exports.register = async (req, res) => {
         });
 
         const payload = { user: { id: user[0].user_id, username: user[0].username } };
-
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
             if (err) throw err;
             res.json({ token });
         });
@@ -58,7 +56,7 @@ exports.login = async (req, res) => {
 
         const payload = { user: { id: user[0].user_id, username: user[0].username } };
 
-        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' }, (err, token) => {
+        jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
             if (err) throw err;
             res.json({
                 token,
@@ -112,9 +110,8 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-    const { name, surname, email, password } = req.body;
+    const { name, surname, email, password, dietaryGoals } = req.body;
     const userId = req.user.id;
-
     try {
         const user = await User.getUserById(userId);
         if (!user.length) {
@@ -125,9 +122,10 @@ exports.updateProfile = async (req, res) => {
             name: name || user[0].name,
             surname: surname || user[0].surname,
             email: email || user[0].email,
+            dietary_goals: dietaryGoals || user[0].dietary_goals,
         };
 
-        if (password) {
+        if (password && password !== '********') {
             const salt = await bcrypt.genSalt(10);
             updatedUser.password = await bcrypt.hash(password, salt);
         }
@@ -135,7 +133,7 @@ exports.updateProfile = async (req, res) => {
         await User.updateUser(userId, updatedUser);
         res.json({ msg: 'Profile updated successfully' });
     } catch (err) {
-        console.error(err.message);
+        console.error('Error updating profile:', err);
         res.status(500).send('Server error');
     }
 };

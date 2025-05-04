@@ -20,17 +20,17 @@ Recipe.getRecipeById = (id) => {
 };
 
 Recipe.createRecipe = (recipeData) => {
-    const { title, instructions, user_id, date_created, image } = recipeData;
+    const { title, instructions, user_id, category, date_created, image_filename } = recipeData;
     return conn.query(
-        'INSERT INTO Recipe (title, instructions, user_id, date_created, image) VALUES (?, ?, ?, ?, ?)',
-        [title, instructions, user_id, date_created, image]
+      'INSERT INTO Recipe (title, instructions, user_id, category, date_created, image_filename) VALUES (?, ?, ?, ?, ?, ?)',
+      [title, instructions, user_id, category, date_created, image_filename]
     )
-        .then(([result]) => result)
-        .catch((err) => {
-            console.error('Error creating recipe:', err);
-            throw err;
-        });
-};
+      .then(([result]) => result)
+      .catch((err) => {
+        console.error('Error creating recipe:', err);
+        throw err;
+      });
+};  
 
 Recipe.deleteRecipe = (id) => {
     return conn.query('DELETE FROM Recipe WHERE recipe_id = ?', [id])

@@ -2,22 +2,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Use min-height to ensure full height coverage */
   background-color: #f0f4f8;
-  padding-bottom: 10vh;
+  padding: 20px; /* Add padding for smaller screens */
+  box-sizing: border-box; /* Ensure padding is included in width/height */
 }
 
 .add-recipe-form {
   background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Increase shadow for more depth */
   max-width: 600px;
   width: 100%;
 }
 
 .add-recipe-form h2 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   font-size: 2rem;
   text-align: center;
   color: #4caf50;
@@ -28,33 +29,49 @@
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: #333;
+  font-size: 1.1rem; /* Slightly increase font size for better readability */
 }
 
 .add-recipe-form input[type="text"],
 .add-recipe-form textarea,
+.add-recipe-form select, /* Include select in the styling */
 .add-recipe-form input[type="file"] {
-  width: 100%;
+  width: 95%; /* Ensure all fields take up the full width */
   padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  border: 1px solid #ccc; /* Lighten border color for a softer look */
+  border-radius: 6px; /* Slightly rounder corners */
   font-size: 1rem;
   color: #333;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem; /* Increase bottom margin for better spacing */
+  transition: border-color 0.3s ease; /* Smooth transition for border color */
+}
+
+.add-recipe-form input[type="text"]:focus,
+.add-recipe-form textarea:focus,
+.add-recipe-form select:focus,
+.add-recipe-form input[type="file"]:focus {
+  border-color: #4caf50; /* Green border on focus */
+  outline: none; /* Remove default outline */
+}
+
+.add-recipe-form textarea {
+  resize: vertical; /* Allow vertical resizing */
 }
 
 .button-group {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end; /* Align buttons to the right */
+  gap: 10px; /* Space between buttons */
   margin-top: 1.5rem;
 }
 
 .add-recipe-button {
-  background-color: #4CAF50; /* Green color for primary action */
+  background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 2rem; /* Slightly wider padding for a better look */
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -64,15 +81,14 @@
 }
 
 .cancel-button {
-  background-color: #f44336; 
+  background-color: #f44336;
   color: white;
   border: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 2rem; /* Match padding with the add button */
   font-size: 1rem;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-right: 40px;
 }
 
 .cancel-button:hover {

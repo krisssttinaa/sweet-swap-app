@@ -6,8 +6,8 @@ import './RecipeList.css';
 
 const RecipeList = ({ category }) => {
   const [recipes, setRecipes] = useState([]);
-  const [selectedTab, setSelectedTab] = useState('all');      // State for selected tab
-  const [isLoggedIn, setIsLoggedIn] = useState(false);        // State to track if the user is logged in
+  const [selectedTab, setSelectedTab] = useState('all'); // State for selected tab
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if the user is logged in
   const [currentCategory, setCurrentCategory] = useState('all'); // State for current category
 
   const navigate = useNavigate();
@@ -29,6 +29,11 @@ const RecipeList = ({ category }) => {
         response = await axios.get('http://88.200.63.148:8288/api/saved/saved', {
           headers: { Authorization: `Bearer ${token}` }
         });
+        if (currentCategory !== 'all') {
+          response = {
+            data: response.data.filter(recipe => recipe.category === currentCategory)
+          };
+        }
       } else if (selectedTab === 'my') {
         if (!userId) {
           console.error('No user ID found. Cannot fetch user-specific recipes.');
@@ -38,12 +43,14 @@ const RecipeList = ({ category }) => {
           headers: { Authorization: `Bearer ${token}` }
         });
         response = {
-          data: response.data.filter(recipe => recipe.user_id === parseInt(userId))
+          data: response.data.filter(recipe => recipe.user_id === parseInt(userId) && (currentCategory === 'all' || recipe.category === currentCategory))
         };
-      } else if (currentCategory === 'all') {
-        response = await axios.get('http://88.200.63.148:8288/api/recipes');
       } else {
-        response = await axios.get(`http://88.200.63.148:8288/api/recipes/category/${currentCategory}`);
+        if (currentCategory === 'all') {
+          response = await axios.get('http://88.200.63.148:8288/api/recipes');
+        } else {
+          response = await axios.get(`http://88.200.63.148:8288/api/recipes/category/${currentCategory}`);
+        }
       }
 
       setRecipes(response.data);

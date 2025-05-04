@@ -10,7 +10,7 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [country, setCountry] = useState('');
-  const [role] = useState('user');
+  const [showPassword, setShowPassword] = useState(false); // State for show password
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -23,12 +23,19 @@ const Register = () => {
         email,
         password,
         country,
-        role
+        role: 'user'
       });
-      console.log(response.data);
       navigate('/login');
+      console.log(response.data);
+      
     } catch (error) {
-      console.error('Registration error', error);
+      if (error.response) {
+        console.error('Registration error:', error.response.data);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error:', error.message);
+      }
     }
   };
 
@@ -80,12 +87,21 @@ const Register = () => {
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+          <div className="form-group show-password">
+            <input
+              type="checkbox"
+              id="showPassword"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <label htmlFor="showPassword">Show password</label>
           </div>
           <div className="form-group">
             <label htmlFor="country">Country:</label>

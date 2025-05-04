@@ -107,7 +107,7 @@ const RecipeDetails = () => {
 
   return (
     <div className="recipe-details">
-      <img src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`} alt={recipe.title} />
+      <img src={`http://88.200.63.148:8288/uploads/${recipe.image_filename}`} alt={recipe.title} />
       <div className="recipe-info">
         <h2>{recipe.title}</h2>
         {recipe.products && recipe.products.length > 0 && (

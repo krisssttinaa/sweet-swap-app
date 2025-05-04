@@ -6,6 +6,7 @@ import './Login.css';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State for show password
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -53,12 +54,21 @@ const Login = () => {
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
+          </div>
+          <div className="form-group show-password">
+            <input
+              type="checkbox"
+              id="showPassword"
+              checked={showPassword}
+              onChange={() => setShowPassword(!showPassword)}
+            />
+            <label htmlFor="showPassword">Show password</label>
           </div>
           <button type="submit" className="login-button">Login</button>
         </form>

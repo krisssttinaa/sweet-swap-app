@@ -63,13 +63,19 @@
   font-size: 18px;
 }
 
-.edit-form input {
+.edit-form input,
+.textarea-dietary-goals {
   padding: 10px;
   margin-bottom: 10px;
   width: 100%;
-  max-width: 300px;
+  max-width: 400px; /* Increase max width for better appearance */
   border: 1px solid #ddd;
   border-radius: 5px;
+  font-size: 16px; /* Add consistent font size */
+}
+
+.textarea-dietary-goals {
+  resize: none; /* Prevent resizing */
 }
 
 .button-group {

@@ -79,9 +79,9 @@ const Home = () => {
           {newRecipes.length > 0 ? (
             newRecipes.map((recipe) => (
               <div className="recipe-card" key={recipe.recipe_id}>
-                {recipe.image && (
+                {recipe.image_filename && (
                   <img
-                    src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`}
+                    src={`http://88.200.63.148:8288/uploads/${recipe.image_filename}`}
                     alt={recipe.title}
                   />
                 )}

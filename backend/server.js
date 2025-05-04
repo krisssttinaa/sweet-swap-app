@@ -1,7 +1,8 @@
 const express = require('express');
+const path = require('path'); // Import the path module
 require('dotenv').config();
 const db = require('./config/db'); // Import the database connection
-const app = express(); // Import the configured app from app.js
+const app = express();
 const port = process.env.PORT || 8288;
 const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
@@ -16,6 +17,7 @@ app.use('/api/saved', savedRoutes);
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api', contactRoutes);
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get("/", (req, res) => {
     res.send("Welcome to Sweet Swap API");

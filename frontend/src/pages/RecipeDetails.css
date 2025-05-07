@@ -9,7 +9,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 50px;
-  margin-top: 30px;
+  margin-top: 50px;
   position: relative; 
 }
 
@@ -17,7 +17,7 @@
   width: 400px; 
   height: auto;
   border-radius: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   margin-top: 40px;
 }
 
@@ -68,12 +68,13 @@
   right: 20px;
   cursor: pointer;
   font-size: 22px; 
+  z-index: 1000; /* Ensure the menu is on top */
 }
 
 .menu-options {
   position: absolute;
-  top: 20px;  
-  right: 20px;
+  top: 40px;  
+  right: 0; /* Align to the right */
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -92,10 +93,13 @@
 }
 
 .burger-icon {
-  display: inline-block;
-  width: 25px;
-  height: 18px;
-  position: relative;
+  width: 26px; /* Adjust width for better visibility */
+  height: 22px; /* Adjust height for better visibility */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  margin-top: 40px;
 }
 
 .burger-icon span {
@@ -103,10 +107,143 @@
   width: 100%;
   height: 3px; 
   background-color: #333;
-  margin-bottom: 4px;
-  position: relative;
+  transition: all 0.3s ease; /* Add smooth transition */
 }
 
 .burger-icon span:last-child {
   margin-bottom: 0;
+}
+
+.author{
+  margin-left: 10px;
+  margin-top: 20px;
+  color: #000000;
+  font-weight: bold;
+  color: #4caf50;
+  cursor: pointer;
+  text-decoration: none;
+}
+.author .username:hover {
+  text-decoration: underline;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment p {
+  margin: 0;
+}
+
+.comment small {
+  display: block;
+  margin-top: 5px;
+  color: #777;
+}
+
+.add-comment {
+  margin-top: 15px;
+}
+
+.add-comment textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-comment button {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: #218838;
+}
+
+.comments-section {
+  margin-top: 20px;
+}
+
+.comment {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.comment p {
+  margin: 0;
+  font-weight: bold; /* Makes the username bold */
+}
+
+.comment small {
+  display: block;
+  margin-top: 5px;
+  color: #777;
+}
+
+.add-comment {
+  margin-top: 15px;
+}
+
+.add-comment textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.add-comment button {
+  padding: 8px 15px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add-comment button:hover {
+  background-color: #218838;
+}
+
+.comment button {
+  margin-left: 5px;
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.comment button:hover {
+  background-color: #218838;
+}
+
+.comment button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.comment button:nth-child(2):hover {
+  background-color: #c82333;
+}
+.comments-buttons-change{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comments-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

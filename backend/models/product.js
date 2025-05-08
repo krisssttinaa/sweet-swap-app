@@ -1,5 +1,4 @@
 const conn = require('../config/db');
-
 const Product = {};
 
 Product.getAllProducts = () => {

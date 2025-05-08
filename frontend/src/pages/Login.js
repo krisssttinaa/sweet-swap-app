@@ -17,9 +17,12 @@ const Login = () => {
         username,
         password
       });
-
+      //console.log('API response:', response.data); 
+  
       const { token, user } = response.data;
-
+      //console.log('Token:', token); 
+      //console.log('User:', user); 
+  
       if (token && user) {
         localStorage.setItem('token', token);
         localStorage.setItem('user_id', user.id);
@@ -34,7 +37,7 @@ const Login = () => {
       setError('Invalid credentials');
     }
   };
-
+  
   return (
     <div className="login-container">
       <div className="login-card">

@@ -92,3 +92,34 @@ exports.getRecipesByCategory = async (req, res) => {
     res.status(500).send('Server error');
   }
 };
+
+exports.updateRecipe = async (req, res) => {
+  const { id } = req.params;
+  const { title, instructions, category } = req.body;
+  const imageFilename = req.file ? req.file.filename : null; // Get the new image file, if uploaded
+
+  try {
+    const [recipe] = await db.query('SELECT * FROM Recipe WHERE recipe_id = ?', [id]);
+
+    if (!recipe.length) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    const updatedRecipe = {
+      title,
+      instructions,
+      category,
+      image_filename: imageFilename || recipe[0].image_filename, // Use the new image or keep the old one
+    };
+
+    await db.query(
+      'UPDATE Recipe SET title = ?, instructions = ?, category = ?, image_filename = ? WHERE recipe_id = ?',
+      [updatedRecipe.title, updatedRecipe.instructions, updatedRecipe.category, updatedRecipe.image_filename, id]
+    );
+
+    res.json({ message: 'Recipe updated successfully' });
+  } catch (err) {
+    console.error('Error updating recipe:', err.message);
+    res.status(500).send('Server error');
+  }
+};

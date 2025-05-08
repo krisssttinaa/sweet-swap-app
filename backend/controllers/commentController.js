@@ -29,10 +29,10 @@ exports.getCommentsByRecipeId = async (req, res) => {
     try {
         const comments = await Comment.getCommentsByRecipeId(recipe_id);
         if (!comments.length) {
-            console.log(`No comments found for recipe ID: ${recipe_id}`);
+            //console.log(`No comments found for recipe ID: ${recipe_id}`);
             return res.status(200).json([]);  // Return an empty array if no comments are found
         }
-        console.log('Sending comments to frontend:', comments);
+        //console.log('Sending comments to frontend:', comments);
         res.status(200).json(comments);  // Send comments to the frontend
     } catch (err) {
         console.error(`Error fetching comments for recipe ID ${recipe_id}:`, err.message);

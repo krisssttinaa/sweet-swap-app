@@ -223,13 +223,12 @@ const RecipeDetails = () => {
 
     const handleReport = () => {
         console.log('Reporting recipe or comment.');
-        // Add report logic here
     };
 
     const handleUsernameClick = (commentUserId) => {
         console.log('Navigating to profile of user with ID:', commentUserId);
         const profilePath = userId === commentUserId.toString() ? '/profile' : `/user/${commentUserId}`;
-        navigate(profilePath); // Navigate to the appropriate profile page
+        navigate(profilePath);
     };
 
     if (!recipe) {

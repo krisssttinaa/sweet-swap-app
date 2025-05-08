@@ -68,14 +68,14 @@
   padding: 10px;
   margin-bottom: 10px;
   width: 100%;
-  max-width: 400px; /* Increase max width for better appearance */
+  max-width: 400px; 
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 16px; /* Add consistent font size */
+  font-size: 16px; 
 }
 
 .textarea-dietary-goals {
-  resize: none; /* Prevent resizing */
+  resize: none; 
 }
 
 .button-group {

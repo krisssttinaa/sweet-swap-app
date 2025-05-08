@@ -12,12 +12,10 @@ module.exports = function (req, res, next) {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         //console.log('Decoded JWT:', decoded);
         req.user = decoded.user;
-
         if (!req.user) {
             console.log('User not found in decoded token');
             return res.status(401).json({ msg: 'Token is not valid' });
         }
-
         next();
     } catch (err) {
         console.log('Token verification failed:', err.message);

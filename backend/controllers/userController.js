@@ -25,7 +25,8 @@ exports.register = async (req, res) => {
             amount_achievements: 0
         });
 
-        const payload = { user: { id: user[0].user_id, username: user[0].username } };
+        let newUser = await User.authUser(username); // Fetch the newly created user
+        const payload = { user: { id: newUser[0].user_id, username: newUser[0].username } };
         jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }, (err, token) => {
             if (err) throw err;
             res.json({ token });
@@ -39,7 +40,7 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const { username, password } = req.body;
     try {
-        console.log('Login endpoint hit');
+        //console.log('Login endpoint hit');
         let user = await User.authUser(username);
         if (user.length === 0) {
             console.log('User not found');
@@ -68,6 +69,7 @@ exports.login = async (req, res) => {
                     surname: user[0].surname,
                 }
             });
+            //console.log(token); // Moved inside the callback
         });
     } catch (err) {
         console.error(err.message);
@@ -110,7 +112,7 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-    const { name, surname, email, password, dietaryGoals } = req.body;
+    const { name, surname, email, password, dietaryGoals, country } = req.body;
     const userId = req.user.id;
     try {
         const user = await User.getUserById(userId);
@@ -123,6 +125,7 @@ exports.updateProfile = async (req, res) => {
             surname: surname || user[0].surname,
             email: email || user[0].email,
             dietary_goals: dietaryGoals || user[0].dietary_goals,
+            country: country || user[0].country, 
         };
 
         if (password && password !== '********') {

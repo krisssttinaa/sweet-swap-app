@@ -42,10 +42,10 @@ User.authUser = (username) => {
 };
 
 User.updateUser = (id, userData) => {
-    const { name, surname, email, password } = userData;
+    const { name, surname, email, password, dietary_goals, country } = userData;
     return conn.query(
-        'UPDATE User SET name = ?, surname = ?, email = ?, password = ? WHERE user_id = ?',
-        [name, surname, email, password, id]
+        'UPDATE User SET name = ?, surname = ?, email = ?, password = ?, dietary_goals = ?, country = ? WHERE user_id = ?',
+        [name, surname, email, password, dietary_goals, country, id]
     )
         .then(([result]) => result)
         .catch((err) => {

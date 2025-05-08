@@ -9,6 +9,5 @@ router.use('/products', require('./productRoutes'));
 router.use('/messages', require('./messageRoutes'));
 router.use('/comments', require('./commentRoutes'));
 router.use('/achievements', require('./achievementRoutes'));
-//router.use('/public', require('./publicRoutes'));  // Public route for viewing posts
 
 module.exports = router;

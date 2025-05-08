@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Profile.css';
 
-const Profile = ({ history }) => {
+const Profile = () => {
+  const { id } = useParams(); // Get the user ID from the URL parameters if available
   const [user, setUser] = useState(null);
   const [recipes, setRecipes] = useState([]);
   const [isEditing, setIsEditing] = useState(false);
@@ -13,35 +15,42 @@ const Profile = ({ history }) => {
     password: '', // Leave password empty initially
     dietaryGoals: '',
   });
+  const navigate = useNavigate();
+  const loggedInUserId = localStorage.getItem('user_id');
 
   useEffect(() => {
     const fetchProfile = async () => {
       const token = localStorage.getItem('token');
+      
       if (!token) {
-        history.push('/login');
+        navigate('/login');
         return;
       }
 
       try {
-        const response = await axios.get('http://88.200.63.148:8288/api/users/profile', {
+        const userIdToFetch = id || loggedInUserId; // Use `id` if available, otherwise use the logged-in user's ID
+        const response = await axios.get(`http://88.200.63.148:8288/api/users/${userIdToFetch}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUser(response.data);
-        setFormData({
-          name: response.data.name,
-          surname: response.data.surname,
-          email: response.data.email,
-          password: '********', // Placeholder to indicate password exists
-          dietaryGoals: response.data.dietary_goals || '',
-        });
+
+        if (!id) {
+          setFormData({
+            name: response.data.name,
+            surname: response.data.surname,
+            email: response.data.email,
+            password: '********', // Placeholder to indicate password exists
+            dietaryGoals: response.data.dietary_goals || '',
+          });
+        }
       } catch (error) {
         console.error('Error fetching profile:', error);
-        history.push('/login');
+        navigate('/login');
       }
     };
 
     fetchProfile();
-  }, [history]);
+  }, [id, loggedInUserId, navigate]);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -79,7 +88,6 @@ const Profile = ({ history }) => {
       dietaryGoals: formData.dietaryGoals,
     };
 
-    // Only update the password if the field is changed from "********"
     if (formData.password !== '********' && formData.password !== '') {
       updateData.password = formData.password;
     }
@@ -114,10 +122,12 @@ const Profile = ({ history }) => {
     return <div>Loading...</div>;
   }
 
+  const isCurrentUser = user.user_id === parseInt(loggedInUserId); // Check if the profile belongs to the logged-in user
+
   return (
     <div className="profile-page">
-      <h2>Profile</h2>
-      {isEditing ? (
+      <h2>{isCurrentUser ? 'Profile' : `${user.username}'s Profile`}</h2>
+      {isCurrentUser && isEditing ? (
         <div className="edit-form">
           <label>Name:</label>
           <input
@@ -168,19 +178,23 @@ const Profile = ({ history }) => {
           <p><strong>Surname:</strong> {user.surname}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Dietary Goals:</strong> {user.dietary_goals || 'Not specified'}</p>
-          <button className="edit" onClick={handleEditClick}>Edit</button>
+          {!id && <button className="edit" onClick={handleEditClick}>Edit</button>}
         </div>
       )}
-      <h3>My Recipes</h3>
+      <h3>{isCurrentUser ? 'My Recipes' : `${user.username}'s Recipes`}</h3>
       <div className="recipe-list">
         {recipes.length === 0 ? (
           <p>No recipes found.</p>
         ) : (
           recipes.map((recipe) => (
-            <div key={recipe.recipe_id} className="recipe-item">
-              {recipe.image && (
+            <div
+              key={recipe.recipe_id}
+              className="recipe-item"
+              onClick={() => navigate(`/recipe/${recipe.recipe_id}`)}
+            >
+              {recipe.image_filename && (
                 <img
-                  src={`data:image/jpeg;base64,${Buffer.from(recipe.image.data).toString('base64')}`}
+                  src={`http://88.200.63.148:8288/uploads/${recipe.image_filename}`}
                   alt={recipe.title}
                   className="recipe-image"
                 />

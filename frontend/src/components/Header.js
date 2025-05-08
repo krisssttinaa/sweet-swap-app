@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './Header.css';
 
@@ -6,11 +6,27 @@ const Header = () => {
   const navigate = useNavigate();
   const isLoggedIn = localStorage.getItem('token') !== null;
   const isModerator = localStorage.getItem('role') === 'moderator';
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
     navigate('/login');
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchTerm.trim()) {
+      navigate(`/search?query=${searchTerm.trim()}`);
+    }
+  };
+
+  const handleLogoClick = () => {
+    navigate('/');
   };
 
   useEffect(() => {
@@ -31,10 +47,20 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className="logo">
+      <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
         <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="Sweet Swap" />
         <h1>Sweet Swap</h1>
       </div>
+      <form onSubmit={handleSearchSubmit} className="search-form">
+        <input 
+          type="text" 
+          value={searchTerm} 
+          onChange={handleSearchChange} 
+          placeholder="Search..." 
+          className="search-input"
+        />
+        <button type="submit" className="search-button">Search</button>
+      </form>
       <nav className="navigation">
         <NavLink to="/" className={({ isActive }) => (isActive ? 'active' : '')}>Home</NavLink>
         <NavLink to="/recipes" className={({ isActive }) => (isActive ? 'active' : '')}>Recipes</NavLink>

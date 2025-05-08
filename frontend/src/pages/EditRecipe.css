@@ -1,82 +1,82 @@
-.add-recipe-container {
+.edit-recipe-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
   background-color: #f0f4f8;
-  padding: 20px; 
+  padding: 20px;
   box-sizing: border-box;
 }
 
-.add-recipe-form {
+.edit-recipe-form {
   background: white;
   padding: 2.5rem;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   max-width: 600px;
   width: 100%;
 }
 
-.add-recipe-form h2 {
+.edit-recipe-form h2 {
   margin-bottom: 2rem;
   font-size: 2rem;
   text-align: center;
   color: #4caf50;
 }
 
-.add-recipe-form label {
+.edit-recipe-form label {
   display: block;
   margin-bottom: 0.5rem;
   font-weight: bold;
   color: #333;
-  font-size: 1.1rem; 
+  font-size: 1.1rem;
 }
 
-.add-recipe-form input[type="text"],
-.add-recipe-form textarea,
-.add-recipe-form select, /* Include select in the styling */
-.add-recipe-form input[type="file"] {
-  width: 95%; 
+.edit-recipe-form input[type="text"],
+.edit-recipe-form textarea,
+.edit-recipe-form select,
+.edit-recipe-form input[type="file"] {
+  width: 95%;
   padding: 0.75rem;
-  border: 1px solid #ccc; 
-  border-radius: 6px; 
+  border: 1px solid #ccc;
+  border-radius: 6px;
   font-size: 1rem;
   color: #333;
-  margin-bottom: 1.25rem; 
-  transition: border-color 0.3s ease; 
+  margin-bottom: 1.25rem;
+  transition: border-color 0.3s ease;
 }
 
-.add-recipe-form input[type="text"]:focus,
-.add-recipe-form textarea:focus,
-.add-recipe-form select:focus,
-.add-recipe-form input[type="file"]:focus {
-  border-color: #4caf50; 
+.edit-recipe-form input[type="text"]:focus,
+.edit-recipe-form textarea:focus,
+.edit-recipe-form select:focus,
+.edit-recipe-form input[type="file"]:focus {
+  border-color: #4caf50;
   outline: none;
 }
 
-.add-recipe-form textarea {
+.edit-recipe-form textarea {
   resize: vertical;
 }
 
 .button-group {
   display: flex;
-  justify-content: flex-end; 
-  gap: 10px; 
+  justify-content: flex-end;
+  gap: 10px;
   margin-top: 1.5rem;
 }
 
-.add-recipe-button {
+.edit-recipe-button {
   background-color: #4CAF50;
   color: white;
   border: none;
-  padding: 0.75rem 2rem; 
+  padding: 0.75rem 2rem;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.add-recipe-button:hover {
+.edit-recipe-button:hover {
   background-color: #45a049;
 }
 
@@ -84,7 +84,7 @@
   background-color: #f44336;
   color: white;
   border: none;
-  padding: 0.75rem 2rem; 
+  padding: 0.75rem 2rem;
   font-size: 1rem;
   border-radius: 6px;
   cursor: pointer;

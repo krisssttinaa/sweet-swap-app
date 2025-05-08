@@ -80,3 +80,35 @@ body {
 .header-small body {
   padding-top: 50px;
 }
+.search-form {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.search-input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  width: 250px;
+}
+
+.search-input:focus {
+  border-color: #4caf50;
+}
+
+.search-button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  border: none;
+  background-color: #4caf50;
+  color: white;
+  border-radius: 5px; 
+  cursor: pointer;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}

@@ -74,7 +74,7 @@
 .menu-options {
   position: absolute;
   top: 40px;  
-  right: 0; /* Align to the right */
+  right: 0; 
   background-color: white;
   border: 1px solid #ddd;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -93,8 +93,8 @@
 }
 
 .burger-icon {
-  width: 26px; /* Adjust width for better visibility */
-  height: 22px; /* Adjust height for better visibility */
+  width: 26px; 
+  height: 22px; 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -107,7 +107,7 @@
   width: 100%;
   height: 3px; 
   background-color: #333;
-  transition: all 0.3s ease; /* Add smooth transition */
+  transition: all 0.3s ease; 
 }
 
 .burger-icon span:last-child {
@@ -150,22 +150,6 @@
   margin-top: 15px;
 }
 
-.add-comment textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.add-comment button {
-  padding: 8px 15px;
-  background-color: #28a745;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
 .add-comment button:hover {
   background-color: #218838;
@@ -182,7 +166,7 @@
 
 .comment p {
   margin: 0;
-  font-weight: bold; /* Makes the username bold */
+  font-weight: bold; 
 }
 
 .comment small {

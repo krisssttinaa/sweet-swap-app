@@ -30,7 +30,20 @@ Recipe.createRecipe = (recipeData) => {
         console.error('Error creating recipe:', err);
         throw err;
       });
-};  
+};
+
+Recipe.updateRecipe = (id, updatedRecipeData) => {
+    const { title, instructions, category, image_filename } = updatedRecipeData;
+    return conn.query(
+        'UPDATE Recipe SET title = ?, instructions = ?, category = ?, image_filename = ? WHERE recipe_id = ?',
+        [title, instructions, category, image_filename, id]
+    )
+    .then(([result]) => result)
+    .catch((err) => {
+        console.error(`Error updating recipe with ID ${id}:`, err);
+        throw err;
+    });
+};
 
 Recipe.deleteRecipe = (id) => {
     return conn.query('DELETE FROM Recipe WHERE recipe_id = ?', [id])

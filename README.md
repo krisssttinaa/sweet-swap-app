@@ -16,6 +16,7 @@ Sweet Swap is a web application that allows users to create, share, and discover
   - bcryptjs for password hashing
   - cors for handling Cross-Origin Resource Sharing
   - multer for file uploads
+  - (nodemailer for sending emails)
 
 - **Database:**
   - MySQL

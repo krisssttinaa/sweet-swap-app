@@ -1,5 +1,6 @@
 .profile-page {
   padding: 20px;
+  padding-left: 40px;
   text-align: center;
 }
 
@@ -81,6 +82,7 @@
 .button-group {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .edit-form button,
@@ -112,4 +114,82 @@ h3 {
 
 .recipe-list p {
   font-size: 18px;
+}
+
+
+.picture-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ddd;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+.picture-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.picture-option {
+  width: 80px;
+  height: 80px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: border-color 0.3s;
+}
+
+.picture-option.selected {
+  border-color: #28a745;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.modal-actions .save {
+  background-color: #28a745;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.modal-actions .close{
+  background-color: #dc3545;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.modal-actions button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.profile-pic {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+.edit-form button.delete {
+  background-color: #dc3545;
+  margin-top: 50px;
+}
+
+.edit-form button.delete:hover {
+  background-color: #c82333;
 }

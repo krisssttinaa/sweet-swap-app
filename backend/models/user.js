@@ -42,16 +42,26 @@ User.authUser = (username) => {
 };
 
 User.updateUser = (id, userData) => {
-    const { name, surname, email, password, dietary_goals, country } = userData;
+    const { username, name, surname, email, password, dietary_goals, country, profile_picture } = userData;
     return conn.query(
-        'UPDATE User SET name = ?, surname = ?, email = ?, password = ?, dietary_goals = ?, country = ? WHERE user_id = ?',
-        [name, surname, email, password, dietary_goals, country, id]
+        'UPDATE User SET username = ?, name = ?, surname = ?, email = ?, password = ?, dietary_goals = ?, country = ?, profile_picture = ? WHERE user_id = ?',
+        [username, name, surname, email, password, dietary_goals, country, profile_picture, id]
     )
+    .then(([result]) => result)
+    .catch((err) => {
+        console.error(`Error updating user with ID ${id}:`, err);
+        throw err;
+    });
+};
+
+User.deleteUser = (id) => {
+    return conn.query('DELETE FROM User WHERE user_id = ?', [id])
         .then(([result]) => result)
         .catch((err) => {
-            console.error(`Error updating user with ID ${id}:`, err);
+            console.error(`Error deleting user with ID ${id}:`, err);
             throw err;
         });
 };
+
 
 module.exports = User;

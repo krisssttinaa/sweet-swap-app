@@ -1,14 +1,15 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // Import useParams to get category from URL if needed
 import RecipeCard from '../components/RecipeCard';
 import './RecipeList.css';
 
-const RecipeList = ({ category }) => {
+const RecipeList = () => {
+  const { category: categoryParam } = useParams(); // Get category from URL
   const [recipes, setRecipes] = useState([]);
-  const [selectedTab, setSelectedTab] = useState('all'); // State for selected tab
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to track if the user is logged in
-  const [currentCategory, setCurrentCategory] = useState('all'); // State for current category
+  const [selectedTab, setSelectedTab] = useState('all'); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
+  const [currentCategory, setCurrentCategory] = useState(categoryParam || 'all'); // Initialize with URL category or default to 'all'
 
   const navigate = useNavigate();
 
@@ -60,6 +61,13 @@ const RecipeList = ({ category }) => {
   }, [selectedTab, currentCategory]);
 
   useEffect(() => {
+    // Update the currentCategory state if the URL changes (when navigating from Home)
+    if (categoryParam) {
+      setCurrentCategory(categoryParam);
+    }
+  }, [categoryParam]);
+
+  useEffect(() => {
     fetchRecipes();
   }, [fetchRecipes]);
 
@@ -85,7 +93,7 @@ const RecipeList = ({ category }) => {
       </div>
       <div className="recipe-header">
         <div className="recipe-actions">
-          <select className="category-select" onChange={(e) => handleCategorySelect(e.target.value)}>
+          <select className="category-select" value={currentCategory} onChange={(e) => handleCategorySelect(e.target.value)}>
             <option value="all">All</option>
             <option value="Salads">Salads</option>
             <option value="Vegetarian Dishes">Vegetarian Dishes</option>

@@ -1,5 +1,6 @@
 .recipe-list {
   padding: 20px;
+  min-height: 37em;
 }
 
 .recipe-list h2 {

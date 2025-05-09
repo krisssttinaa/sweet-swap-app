@@ -51,7 +51,7 @@ exports.createComment = async (req, res) => {
             content,
             date_commented: new Date()
         });
-        console.log('New comment created:', newComment);
+        //console.log('New comment created:', newComment);
         res.json(newComment);
     } catch (err) {
         console.error('Error creating comment:', err.message);

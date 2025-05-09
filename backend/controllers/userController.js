@@ -40,7 +40,6 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     const { username, password } = req.body;
     try {
-        //console.log('Login endpoint hit');
         let user = await User.authUser(username);
         if (user.length === 0) {
             console.log('User not found');
@@ -69,14 +68,13 @@ exports.login = async (req, res) => {
                     surname: user[0].surname,
                 }
             });
-            //console.log(token); // Moved inside the callback
         });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server error');
     }
 };
-  
+
 exports.profile = async (req, res) => {
     try {
         const user = await User.getUserById(req.user.id);
@@ -86,7 +84,6 @@ exports.profile = async (req, res) => {
         res.status(500).send('Server error');
     }
 };
-
 
 exports.getAllUsers = async (req, res) => {
     try {
@@ -112,8 +109,9 @@ exports.getUserById = async (req, res) => {
 };
 
 exports.updateProfile = async (req, res) => {
-    const { name, surname, email, password, dietaryGoals, country } = req.body;
+    const { username, name, surname, email, password, dietaryGoals, country, profilePicture } = req.body;
     const userId = req.user.id;
+
     try {
         const user = await User.getUserById(userId);
         if (!user.length) {
@@ -121,22 +119,43 @@ exports.updateProfile = async (req, res) => {
         }
 
         const updatedUser = {
+            username: username || user[0].username, // Update username
             name: name || user[0].name,
             surname: surname || user[0].surname,
             email: email || user[0].email,
             dietary_goals: dietaryGoals || user[0].dietary_goals,
-            country: country || user[0].country, 
+            country: country || user[0].country,
+            profile_picture: profilePicture || user[0].profile_picture,
         };
 
         if (password && password !== '********') {
             const salt = await bcrypt.genSalt(10);
             updatedUser.password = await bcrypt.hash(password, salt);
+        } else {
+            updatedUser.password = user[0].password; // Keep the existing password if not updated
         }
 
         await User.updateUser(userId, updatedUser);
         res.json({ msg: 'Profile updated successfully' });
     } catch (err) {
         console.error('Error updating profile:', err);
+        res.status(500).send('Server error');
+    }
+};
+
+exports.deleteProfile = async (req, res) => {
+    const userId = req.user.id;
+
+    try {
+        const user = await User.getUserById(userId);
+        if (!user.length) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        await User.deleteUser(userId); // Assuming you will add this method in your User model
+        res.status(200).json({ msg: 'User deleted successfully' });
+    } catch (err) {
+        console.error('Error deleting user profile:', err);
         res.status(500).send('Server error');
     }
 };

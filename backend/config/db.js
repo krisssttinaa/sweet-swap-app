@@ -9,6 +9,7 @@ const connection = mysql.createPool({
     port: process.env.DB_PORT
 });
 
+
 console.log('Database connection details:', {
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -16,5 +17,7 @@ console.log('Database connection details:', {
     database: process.env.DB_NAME,
     port: process.env.DB_PORT || 3307,
 });
+
+
 
 module.exports = connection;

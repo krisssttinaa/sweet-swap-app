@@ -13,7 +13,15 @@
   position: relative; 
 }
 
-.recipe-details img {
+.profile-picture {
+  width: 35px; 
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.recipe-img {
   width: 400px; 
   height: auto;
   border-radius: 10px;
@@ -114,54 +122,31 @@
   margin-bottom: 0;
 }
 
-.author{
+.author {
   margin-left: 10px;
   margin-top: 20px;
-  color: #000000;
-  font-weight: bold;
   color: #4caf50;
   cursor: pointer;
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
+
 .author .username:hover {
   text-decoration: underline;
 }
 
 .comments-section {
   margin-top: 20px;
+  margin-left: 10px;
 }
 
 .comment {
   padding: 10px;
   border-bottom: 1px solid #ccc;
-}
-
-.comment p {
-  margin: 0;
-}
-
-.comment small {
-  display: block;
-  margin-top: 5px;
-  color: #777;
-}
-
-.add-comment {
-  margin-top: 15px;
-}
-
-
-.add-comment button:hover {
-  background-color: #218838;
-}
-
-.comments-section {
-  margin-top: 20px;
-}
-
-.comment {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
+  display: flex;
+  align-items: left; 
+  flex-direction: column;
 }
 
 .comment p {
@@ -221,7 +206,8 @@
 .comment button:nth-child(2):hover {
   background-color: #c82333;
 }
-.comments-buttons-change{
+
+.comments-buttons-change {
   display: flex;
   justify-content: flex-end;
 }
@@ -230,4 +216,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+}
+
+.clickable-username {
+  cursor: pointer;
+  color: #000000; 
+}
+
+.clickable-username:hover {
+  text-decoration: underline;
 }
